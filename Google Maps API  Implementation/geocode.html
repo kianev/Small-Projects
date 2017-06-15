@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geocode App</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="geocode.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 id="text-center">Enter Location</h2>
+        <form action="" id="location-form">
+            <input type="text" id="location-input" class="form-control form-control-lg">
+            <br>
+            <button type="submit" class="btn btn-primary btn-block">Sumbit</button>
+        </form>
+        <div class="card-block" id="formatted_address"></div>
+        <div class="card-block" id="address_components"></div>
+        <div class="card-block" id="geometry"></div>
+    </div>
+
+<script>
+    let locationForm = document.getElementById("location-form");
+
+    locationForm.addEventListener("submit", geocode);
+</script>
+</body>
+</html>
