@@ -88,6 +88,15 @@ ul {
     transition: background-color 1s ease-out;
 }
 
+.alert {
+    text-align: center;
+    padding: 10px;
+    background: #79c879;
+    color: white;
+    margin-bottom: 10px;
+    display: none;
+}
+
 @media(min-width:700px){
     .wrapper{
         display: grid;

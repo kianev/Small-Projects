@@ -12,7 +12,7 @@ export default class TodoListItem extends Component {
     renderTaskSection(){
         const {task, isCompleted} = this.props;
         const taskStyle = {
-            color: isCompleted ? "blue" : "red",
+            color: isCompleted ? "green" : "red",
             cursor: "pointer"
         };
 
