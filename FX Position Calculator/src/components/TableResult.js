@@ -13,15 +13,15 @@ export default class TableResult extends Component {
                    </thead>
                    <tbody>
                    <tr>
-                       <td>Money , EUR</td>
+                       <td>Amount at Risk, EUR</td>
                        <td></td>
                    </tr>
                    <tr>
-                       <td>Units</td>
+                       <td>Position Size (units)</td>
                        <td></td>
                    </tr>
                    <tr>
-                       <td>Lots</td>
+                       <td>Standard Lots</td>
                        <td></td>
                    </tr>
                    </tbody>
