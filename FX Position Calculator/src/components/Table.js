@@ -1,11 +1,43 @@
 import React, {Component} from 'react';
 import './Table.css';
+import TableResult from './TableResult';
 
 export default class Table extends Component {
+    constructor(){
+        super();
+        this.state = {
+            selectVal: "EUR",
+            fxRate: ""
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.getRates = this.getRates.bind(this);
+    }
+
     static defaultProps = {
         accCurrencies: ["EUR", "USD", "GBP"],
-        currPairs: ["EURUSD", "EURGBP", "USDGBP", "USDJPY", "USDAUD"]
+        currPairs: ["EURUSD", "EURGBP", "USDGBP", "USDJPY", "USDAUD"],
     };
+
+    getRates() {
+        fetch("https://openexchangerates.org/api/latest.json?app_id=765c6dc585e24300a2718e68dc2c8481", {
+            method: "GET"
+        })
+            .then((res) => res.json())
+            .then((data) => {
+               this.setState({
+                   fxRate: data.rates
+               })
+            })
+            .catch((err) => console.log(err));
+    }
+
+
+    handleChange(e){
+        this.setState({
+            selectVal: e.target.value
+        });
+    }
 
     render() {
         let accCurrencyOption = this.props.accCurrencies.map(currency => {
@@ -27,7 +59,7 @@ export default class Table extends Component {
                     <tbody>
                         <tr>
                             <td>Account currency</td>
-                            <td><select>{accCurrencyOption}</select></td>
+                            <td><select onChange={this.handleChange}>{accCurrencyOption}</select></td>
                         </tr>
                         <tr>
                             <td>Account Size</td>
@@ -47,13 +79,14 @@ export default class Table extends Component {
                         </tr>
                         <tr>
                             <td>Current price :</td>
-                            <td>Show FX Rate</td>
+                            <td>To Display FX Rate</td>
                         </tr>
                         <tr>
-                            <td colSpan={2}><button id="calcBtn">Calculate</button></td>
+                            <td colSpan={2}><button id="calcBtn" onClick={this.getRates}>Calculate</button></td>
                         </tr>
                     </tbody>
                 </table>
+                <TableResult selectedAccCurrency={this.state.selectVal}/>
             </div>
         );
     }

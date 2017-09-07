@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Header from './components/Header';
 import Table from './components/Table';
-import TableResult from './components/TableResult'
+
 
 export default class App extends Component {
     render() {
@@ -9,7 +9,6 @@ export default class App extends Component {
             <div>
                 <Header />
                 <Table />
-                <TableResult />
             </div>
         );
     }

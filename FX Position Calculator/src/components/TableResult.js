@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import './TableResult.css';
 
 export default class TableResult extends Component {
+
     render() {
+
         return (
-            <div className="container">
-               <table>
+            <div>
+               <table className="container2">
                    <thead>
                        <tr>
                            <th colSpan={2}>Results</th>
@@ -13,7 +14,7 @@ export default class TableResult extends Component {
                    </thead>
                    <tbody>
                    <tr>
-                       <td>Amount at Risk, EUR</td>
+                       <td>Amount at Risk, {this.props.selectedAccCurrency}</td>
                        <td></td>
                    </tr>
                    <tr>
