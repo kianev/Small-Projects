@@ -83,7 +83,7 @@ export default class Table extends Component {
         if (this.state.accCurrency === "USD") {
             let units = (amountAtRisk / this.state.slPips) * (100000 / (100000 * 0.0001));
             this.setState({
-                units: units,
+                units: units.toFixed(2),
                 lots: (units/100000).toFixed(2)
             })
         } else if (this.state.accCurrency === "EUR") {
