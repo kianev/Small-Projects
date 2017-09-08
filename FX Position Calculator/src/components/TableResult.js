@@ -14,7 +14,7 @@ export default class TableResult extends Component {
                    </thead>
                    <tbody>
                    <tr>
-                       <td>Amount at Risk, {this.props.selectedAccCurrency}</td>
+                       <td>Amount at Risk, {this.props.getAccCurrency}</td>
                        <td></td>
                    </tr>
                    <tr>

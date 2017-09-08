@@ -6,17 +6,17 @@ export default class Table extends Component {
     constructor(){
         super();
         this.state = {
-            selectVal: "EUR",
-            fxRate: ""
+            accCurrency: "EUR",
+            fxRates: ""
         };
 
-        this.handleChange = this.handleChange.bind(this);
+        this.getAccCurrency = this.getAccCurrency.bind(this);
         this.getRates = this.getRates.bind(this);
     }
 
     static defaultProps = {
-        accCurrencies: ["EUR", "USD", "GBP"],
-        currPairs: ["EURUSD", "EURGBP", "USDGBP", "USDJPY", "USDAUD"],
+        accCurrencies: ["EUR", "USD"],
+        currPairs: ["EURUSD", "USDGBP", "USDJPY", "USDAUD"]
     };
 
     getRates() {
@@ -25,17 +25,18 @@ export default class Table extends Component {
         })
             .then((res) => res.json())
             .then((data) => {
+            console.log(data.rates);
                this.setState({
-                   fxRate: data.rates
+                   fxRates: data.rates
                })
             })
             .catch((err) => console.log(err));
     }
 
 
-    handleChange(e){
+    getAccCurrency(e){
         this.setState({
-            selectVal: e.target.value
+            accCurrency: e.target.value
         });
     }
 
@@ -59,7 +60,7 @@ export default class Table extends Component {
                     <tbody>
                         <tr>
                             <td>Account currency</td>
-                            <td><select onChange={this.handleChange}>{accCurrencyOption}</select></td>
+                            <td><select onChange={this.getAccCurrency}>{accCurrencyOption}</select></td>
                         </tr>
                         <tr>
                             <td>Account Size</td>
@@ -79,14 +80,14 @@ export default class Table extends Component {
                         </tr>
                         <tr>
                             <td>Current price :</td>
-                            <td>To Display FX Rate</td>
+                            <td>{this.state.fxRates.USD}</td>
                         </tr>
                         <tr>
                             <td colSpan={2}><button id="calcBtn" onClick={this.getRates}>Calculate</button></td>
                         </tr>
                     </tbody>
                 </table>
-                <TableResult selectedAccCurrency={this.state.selectVal}/>
+                <TableResult getAccCurrency={this.state.accCurrency}/>
             </div>
         );
     }
