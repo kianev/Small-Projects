@@ -7,36 +7,69 @@ export default class Table extends Component {
         super();
         this.state = {
             accCurrency: "EUR",
-            fxRates: ""
+            currPairValues: "EUR",
+            fxRates: "",
+            accSize: "",
+            riskPers: "",
+            slPips: ""
         };
 
         this.getAccCurrency = this.getAccCurrency.bind(this);
-        this.getRates = this.getRates.bind(this);
+        this.getCurrPairValue = this.getCurrPairValue.bind(this);
+        this.getAccSize = this.getAccSize.bind(this);
+        this.getRiskPers = this.getRiskPers.bind(this);
+        this.getSlPips = this.getSlPips.bind(this);
     }
 
     static defaultProps = {
         accCurrencies: ["EUR", "USD"],
+        currPairsValue: ["EUR", "GBP", "JPY", "AUD"],
         currPairs: ["EURUSD", "USDGBP", "USDJPY", "USDAUD"]
     };
 
-    getRates() {
+    componentDidMount(){
         fetch("https://openexchangerates.org/api/latest.json?app_id=765c6dc585e24300a2718e68dc2c8481", {
             method: "GET"
         })
             .then((res) => res.json())
             .then((data) => {
-            console.log(data.rates);
-               this.setState({
-                   fxRates: data.rates
-               })
+                this.setState({
+                    fxRates: data.rates
+                })
             })
             .catch((err) => console.log(err));
     }
 
-
-    getAccCurrency(e){
+    getAccCurrency(evt){
         this.setState({
-            accCurrency: e.target.value
+            accCurrency: evt.target.value
+        });
+    }
+
+    getCurrPairValue(evt){
+        this.setState({
+            currPairValues: evt.target.value
+        });
+    }
+
+    getAccSize(evt){
+        console.log(evt);
+        this.setState({
+            accSize: evt.target.value
+        });
+    }
+
+    getRiskPers(evt){
+        console.log(evt);
+        this.setState({
+            riskPers: evt.target.value
+        });
+    }
+
+    getSlPips(evt){
+        console.log(evt);
+        this.setState({
+            slPips: evt.target.value
         });
     }
 
@@ -45,8 +78,8 @@ export default class Table extends Component {
             return <option key={currency} value={currency}>{currency}</option>
         });
 
-        let currPairsOption = this.props.currPairs.map(pair => {
-            return <option key={pair} value={pair}>{pair}</option>
+        let currPairsOption = this.props.currPairs.map((pair,i) => {
+            return <option key={pair} value={this.props.currPairsValue[i]}>{pair}</option>
         });
 
         return (
@@ -64,30 +97,35 @@ export default class Table extends Component {
                         </tr>
                         <tr>
                             <td>Account Size</td>
-                            <td><input type="text"/></td>
+                            <td><input value={this.state.accSize} onChange={this.getAccSize}/></td>
                         </tr>
                         <tr>
                             <td>Risk Ratio, %</td>
-                            <td><input type="text"/></td>
+                            <td><input value={this.state.riskPers} onChange={this.getRiskPers}/></td>
                         </tr>
                         <tr>
                             <td>Stop-Loss, pips</td>
-                            <td><input type="text"/></td>
+                            <td><input value={this.state.slPips} onChange={this.getSlPips}/></td>
                         </tr>
                         <tr>
                             <td>Currency pair</td>
-                            <td><select>{currPairsOption}</select></td>
+                            <td><select onChange={this.getCurrPairValue}>{currPairsOption}</select></td>
                         </tr>
                         <tr>
-                            <td>Current price :</td>
-                            <td>{this.state.fxRates.USD}</td>
+                            <td>Current FX price:</td>
+                            <td>{(1 / this.state.fxRates[this.state.currPairValues]).toFixed(4)}</td>
                         </tr>
                         <tr>
-                            <td colSpan={2}><button id="calcBtn" onClick={this.getRates}>Calculate</button></td>
+                            <td colSpan={2}><button id="calcBtn">Calculate</button></td>
                         </tr>
                     </tbody>
                 </table>
-                <TableResult getAccCurrency={this.state.accCurrency}/>
+                <TableResult
+                    getAccCurrency={this.state.accCurrency}
+                    accountSize={this.state.accSize}
+                    riskPercentage={this.state.riskPers}
+                    stopLossPips={this.state.slPips}
+                />
             </div>
         );
     }
