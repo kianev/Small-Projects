@@ -1,0 +1,31 @@
+    <% include partials/header.ejs %>
+    <h1><%= title %></h1>
+    <h3>Add Customer</h3>
+    <% if(errors){ %>
+    <ul>
+        <% errors.forEach((error) => { %>
+            <li><%= error.msg %></li>
+        <% }) %>
+    </ul>
+    <% } %>
+<form method="POST" action="users/add">
+    <label>First Name</label> <br/>
+    <input type="text" name="first_name">
+    <br/>
+    <label>Last Name</label> <br/>
+    <input type="text" name="last_name">
+    <br/>
+    <label>Gender</label> <br/>
+    <input type="text" name="gender">
+    <br/> <br/>
+    <input type="submit" value="Sumbit">
+</form>
+<ul>
+    <% users.forEach((user) => { %>
+        <li><%= user.first_name %> <%= user.last_name %> <a href="#" class="deleteCustomer"
+                                                            data-id="<%= user._id %>">Delete</a> </li>
+    <% }) %>
+</ul>
+<% include partials/footer.ejs %>
+
+

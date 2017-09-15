@@ -1,0 +1,18 @@
+{
+  "name": "express-exersises",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Kaloian",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "express-validator": "^4.1.1",
+    "mongojs": "^2.4.1"
+  }
+}
